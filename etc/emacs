@@ -7,21 +7,24 @@
 (setq c-offsets-alist '((member-init-intro . ++)))
 
 (defconst cs211-c-style
-  '((c-tab-always-indent        . t)
-    (c-comment-only-line-offset . 4)
+  '("k&r"
+    (c-tab-always-indent        . t)
     (c-cleanup-list             . (brace-else-brace
                                    brace-elseif-brace
                                    brace-catch-brace
                                    defun-close-semi
                                    empty-defun-braces
                                    list-close-comma
-                                   scope-operator)))
+                                   scope-operator))
+    (c-offsets-alist            . ((arglist-close . c-lineup-arglist))))
   "CS211 C(++) Style")
 (c-add-style "CS211" cs211-c-style)
 
 (defun cs211-c-mode-common-hook ()
   (c-set-style "CS211")
-  (setq c-basic-offset   4
-        tab-width        8
-        indent-tabs-mode nil))
+  (setq c-auto-newline    t
+        c-basic-offset    4
+        tab-width         8
+        indent-tabs-mode  nil))
 (add-hook 'c-mode-common-hook 'cs211-c-mode-common-hook)
+
