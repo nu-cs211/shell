@@ -1,0 +1,33 @@
+umask 077
+
+TOV_PUB="/home/jesse/pub"
+export TOV_PUB
+URL211='https://users.cs.northwestern.edu/~jesse/course/cs211'
+export URL211
+RPS1='[%{[0;34m%}dev%{[0m%}]'
+export RPS1
+
+PATH="$TOV_PUB/bin:$PATH"
+PATH="$TOV_PUB/rust/cargo/bin:$PATH"
+export PATH
+
+MANPATH="$TOV_PUB/man:$MANPATH"
+MANPATH="$TOV_PUB/share/man:$MANPATH"
+export MANPATH
+
+CFLAGS=-I"$TOV_PUB/include"
+export CFLAGS
+CXXFLAGS="$CFLAGS"
+export CXXFLAGS
+
+LD_LIBRARY_PATH="$TOV_PUB/lib:$LD_LIBRARY_PATH"
+export LD_LIBRARY_PATH
+
+LD_RUN_PATH="$TOV_PUB/lib:$LD_RUN_PATH"
+export LD_RUN_PATH
+
+OPAMROOT="$TOV_PUB/opam"
+export OPAMROOT
+source $OPAMROOT/opam-init/init.sh
+
+alias dev='exec start-dev.sh'

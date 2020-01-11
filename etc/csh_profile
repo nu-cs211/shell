@@ -1,0 +1,29 @@
+# vim:se ft=csh:
+
+umask 077
+
+setenv TOV_PUB /home/jesse/pub
+setenv URL211  'https://users.cs.northwestern.edu/~jesse/course/cs211'
+# TODO: Get rid of this:
+setenv RPS1    '[%{[0;34m%}dev%{[0m%}]'
+
+set path = ($TOV_PUB/bin $path)
+set path = ($TOV_PUB/rust/cargo/bin $path)
+
+if ( ! $?MANPATH ) setenv MANPATH ""
+setenv MANPATH $TOV_PUB/man:$MANPATH
+setenv MANPATH $TOV_PUB/share/man:$MANPATH
+
+setenv CFLAGS -I$TOV_PUB/include
+setenv CXXFLAGS $CFLAGS
+
+if (! $?LD_LIBRARY_PATH ) setenv LD_LIBRARY_PATH ""
+setenv LD_LIBRARY_PATH $TOV_PUB/lib:$LD_LIBRARY_PATH
+
+if (! $?LD_RUN_PATH ) setenv LD_RUN_PATH ""
+setenv LD_RUN_PATH $TOV_PUB/lib:$LD_RUN_PATH
+
+setenv OPAMROOT $TOV_PUB/opam
+source $OPAMROOT/opam-init/init.csh
+
+alias dev exec start-dev.sh

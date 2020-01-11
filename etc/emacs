@@ -1,0 +1,27 @@
+;; vim: set ft=lisp :
+
+(defun cs211-c-initialization-hook ()
+  (define-key c-mode-base-map "\C-m" 'c-context-line-break))
+(add-hook 'c-initialization-hook 'cs211-c-initialization-hook)
+
+(setq c-offsets-alist '((member-init-intro . ++)))
+
+(defconst cs211-c-style
+  '((c-tab-always-indent        . t)
+    (c-comment-only-line-offset . 4)
+    (c-cleanup-list             . (brace-else-brace
+                                   brace-elseif-brace
+                                   brace-catch-brace
+                                   defun-close-semi
+                                   empty-defun-braces
+                                   list-close-comma
+                                   scope-operator)))
+  "CS211 C(++) Style")
+(c-add-style "CS211" cs211-c-style)
+
+(defun cs211-c-mode-common-hook ()
+  (c-set-style "CS211")
+  (setq c-basic-offset   4
+        tab-width        8
+        indent-tabs-mode nil))
+(add-hook 'c-mode-common-hook 'cs211-c-mode-common-hook)
