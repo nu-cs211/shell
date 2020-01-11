@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# Executes in-place clang-format after ensuring that the user has a
+# .clang-format file in place. (If none exists, creates a symlink to the
+# course .clang-format file.)
+
+if [ -z "$1" ]; then
+    echo >&2 "Usage: $(basename $0) FILES ..."
+    exit 1
+fi
+
+$TOV_PUB/bin/install-clang-format211
+
+exec $TOV_PUB/bin/clang-format -style=file -i "$@"
+
