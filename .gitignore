@@ -1,0 +1,13 @@
+bin/
+doc/
+include/
+install-stack.sh
+lib/
+lib64/
+libexec/
+man/
+opam/
+rust/
+share/
+src/
+ssl/
