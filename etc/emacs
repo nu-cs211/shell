@@ -4,8 +4,6 @@
   (define-key c-mode-base-map "\C-m" 'c-context-line-break))
 (add-hook 'c-initialization-hook 'cs211-c-initialization-hook)
 
-(setq c-offsets-alist '((member-init-intro . ++)))
-
 (defconst cs211-c-style
   '("k&r"
     (c-tab-always-indent        . t)
@@ -28,3 +26,9 @@
         indent-tabs-mode  nil))
 (add-hook 'c-mode-common-hook 'cs211-c-mode-common-hook)
 
+
+;;
+;; Keybindings
+;;
+
+(global-set-key "\C-x\C-m" 'compile)
