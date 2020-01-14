@@ -1,10 +1,6 @@
 #!/bin/sh
 
-if ! [ -f $HOME/.zshrc ]; then
-    echo '# This is a commment' > $HOME/.zshrc
-fi
+test -f $HOME/.zshrc ||
+    echo "# Created by $0" > $HOME/.zshrc
 
-DEV211=1
-export DEV211
-
-exec scl enable devtoolset-8 zsh
+DEV211=1 exec scl enable devtoolset-8 zsh

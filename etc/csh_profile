@@ -26,4 +26,4 @@ setenv LD_RUN_PATH $TOV_PUB/lib:$LD_RUN_PATH
 setenv OPAMROOT $TOV_PUB/opam
 source $OPAMROOT/opam-init/init.csh
 
-alias dev exec start-dev.sh
+alias dev 'check-dev.sh && exec start-dev.sh'
