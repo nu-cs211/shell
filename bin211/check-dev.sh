@@ -1,6 +1,11 @@
 #!/bin/sh
 # vim: ts=4 noet
 
+if [ "$DEV211" = 1 ]; then
+    echo >&2 'dev: error: already loaded'
+    exit 1
+fi
+
 which scl >/dev/null 2>&1 && exit 0
 
 fmt >&2 <<-EOF
@@ -12,4 +17,4 @@ fmt >&2 <<-EOF
 
 EOF
 
-exit 1
+exit 2

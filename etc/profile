@@ -4,8 +4,6 @@ TOV_PUB="/home/jesse/pub"
 export TOV_PUB
 URL211='https://users.cs.northwestern.edu/~jesse/course/cs211'
 export URL211
-RPS1='[%{[0;34m%}dev%{[0m%}]'
-export RPS1
 
 PATH="$TOV_PUB/bin:$PATH"
 PATH="$TOV_PUB/rust/cargo/bin:$PATH"
@@ -30,4 +28,4 @@ OPAMROOT="$TOV_PUB/opam"
 export OPAMROOT
 source $OPAMROOT/opam-init/init.sh
 
-alias dev='exec start-dev.sh'
+alias dev='check-dev.sh && exec start-dev.sh'
