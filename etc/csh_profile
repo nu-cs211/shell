@@ -9,6 +9,7 @@ setenv URL211  'https://users.cs.northwestern.edu/~jesse/course/cs211'
 setenv RPS211  '%{[0;2m%}(%{[0;34m%}d%{[0;2m%})%{[0m%}'
 
 set path = ($TOV_PUB/bin $path)
+set path = (/home/software/rust/bin $path)
 set path = ($path $TOV_PUB/rust/cargo/bin)
 
 if ( ! $?MANPATH ) setenv MANPATH ""

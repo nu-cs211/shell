@@ -6,6 +6,7 @@ URL211='https://users.cs.northwestern.edu/~jesse/course/cs211'
 export URL211
 
 PATH="$TOV_PUB/bin:$PATH"
+PATH="/home/software/rust/bin:$PATH"
 PATH="$PATH:$TOV_PUB/rust/cargo/bin"
 export PATH
 
