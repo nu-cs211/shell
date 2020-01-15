@@ -1,12 +1,25 @@
 #!/bin/sh
 # vim: ts=4 noet
 
+cc_version () {
+    cc --version 2>/dev/null |
+        head -1 |
+        sed -E 's/.*\b([[:digit:]]+\.[[:digit:]]+\.[[:digit:]]+)\b.*/\1/'
+}
+
 if [ "$DEV211" = 1 ]; then
     echo >&2 'dev: error: already loaded'
     exit 1
 fi
 
-which scl >/dev/null 2>&1 && exit 0
+case "$(cc_version)" in
+    8.*|9.*)
+        exit 0
+        ;;
+    *)
+        which scl >/dev/null 2>&1 && exit 0
+        ;;
+esac
 
 fmt >&2 <<-EOF
 	dev: error: The CS 211 dev environment isn’t available on
