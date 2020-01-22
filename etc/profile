@@ -1,31 +1,56 @@
 umask 077
 
-TOV_PUB="/home/jesse/pub"
+TOV_PUB=/home/jesse/pub
 export TOV_PUB
-URL211='https://users.cs.northwestern.edu/~jesse/course/cs211'
+URL211=https://users.cs.northwestern.edu/~jesse/course/cs211
 export URL211
 
-PATH="$TOV_PUB/bin:$PATH"
-PATH="/home/software/rust/bin:$PATH"
-PATH="$PATH:$TOV_PUB/rust/cargo/bin"
-export PATH
+get_indirect () {
+    eval "printf %s \"\$$1\""
+}
 
-MANPATH="$TOV_PUB/man:$MANPATH"
-MANPATH="$TOV_PUB/share/man:$MANPATH"
-export MANPATH
+set_indirect () {
+    eval "$1=\"$2\"; export $1"
+}
 
-CFLAGS=-I"$TOV_PUB/include"
-export CFLAGS
-CXXFLAGS="$CFLAGS"
-export CXXFLAGS
+prepend () {
+    local name; name="$1"; shift
+    local sep; sep="$1"; shift
 
-LD_LIBRARY_PATH="$TOV_PUB/lib:$LD_LIBRARY_PATH"
-export LD_LIBRARY_PATH
+    local value
+    value=$(get_indirect $name)
 
-LD_RUN_PATH="$TOV_PUB/lib:$LD_RUN_PATH"
-export LD_RUN_PATH
+    local each
+    for each; do
+        if [ -n "$value" ]; then
+            value="${each}${sep}${value}"
+        else
+            value="${each}"
+        fi
+    done
 
-OPAMROOT="$TOV_PUB/opam"
+    set_indirect $name "$value"
+}
+
+prepend PATH : \
+    /home/software/rust/bin \
+    $TOV_PUB/rust/cargo/bin \
+    $TOV_PUB/bin
+
+prepend MANPATH : \
+    $TOV_PUB/man \
+    $TOV_PUB/share/man
+
+CPPFLAGS=-I$TOV_PUB/include
+export CPPFLAGS
+
+for libdir in lib lib64; do
+    prepend LDFLAGS        ' ' -L$TOV_PUB/$libdir
+    prepend LD_LIBRARY_PATH :  $TOV_PUB/$libdir
+    prepend LD_RUN_PATH     :  $TOV_PUB/$libdir
+done
+
+OPAMROOT=$TOV_PUB/opam
 export OPAMROOT
 source $OPAMROOT/opam-init/init.sh
 
