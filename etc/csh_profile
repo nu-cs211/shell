@@ -2,28 +2,31 @@
 
 umask 077
 
-setenv TOV_PUB /home/jesse/pub
-setenv URL211  'https://users.cs.northwestern.edu/~jesse/course/cs211'
+setenv TOV_PUB "/home/jesse/pub"
+setenv URL211  "https://users.cs.northwestern.edu/~jesse/course/cs211"
 
 # TODO: Get rid of this:
 setenv RPS211  '%{[0;2m%}(%{[0;34m%}d%{[0;2m%})%{[0m%}'
 
-set path = ($TOV_PUB/bin $path)
 set path = (/home/software/rust/bin $path)
-set path = ($path $TOV_PUB/rust/cargo/bin)
+set path = ($TOV_PUB/rust/cargo/bin $path)
+set path = ($TOV_PUB/bin $path)
 
 if ( ! $?MANPATH ) setenv MANPATH ""
-setenv MANPATH $TOV_PUB/man:$MANPATH
-setenv MANPATH $TOV_PUB/share/man:$MANPATH
+setenv MANPATH "$TOV_PUB/man:$MANPATH"
+setenv MANPATH "$TOV_PUB/share/man:$MANPATH"
 
-setenv CFLAGS -I$TOV_PUB/include
-setenv CXXFLAGS $CFLAGS
+setenv CPPFLAGS "-I$TOV_PUB/include"
 
-if (! $?LD_LIBRARY_PATH ) setenv LD_LIBRARY_PATH ""
-setenv LD_LIBRARY_PATH $TOV_PUB/lib:$LD_LIBRARY_PATH
+if (! $?LDFLAGS )          setenv LDFLAGS ""
+if (! $?LD_LIBRARY_PATH )  setenv LD_LIBRARY_PATH ""
+if (! $?LD_RUN_PATH )      setenv LD_RUN_PATH ""
 
-if (! $?LD_RUN_PATH ) setenv LD_RUN_PATH ""
-setenv LD_RUN_PATH $TOV_PUB/lib:$LD_RUN_PATH
+foreach libdir ( lib lib64 )
+    setenv LDFLAGS         "-L$TOV_PUB/$libdir $LDFLAGS"
+    setenv LD_LIBRARY_PATH "$TOV_PUB/${libdir}:$LD_LIBRARY_PATH"
+    setenv LD_RUN_PATH     "$TOV_PUB/${libdir}:$LD_RUN_PATH"
+end
 
 setenv OPAMROOT $TOV_PUB/opam
 source $OPAMROOT/opam-init/init.csh
