@@ -50,8 +50,15 @@ for libdir in lib lib64; do
     prepend LD_RUN_PATH     :  $TOV_PUB/$libdir
 done
 
+: ${ASAN_OPTIONS:=symbolize=1,print_scariness=1}
+export ASAN_OPTIONS
+
 OPAMROOT=$TOV_PUB/opam
 export OPAMROOT
 source $OPAMROOT/opam-init/init.sh
 
 alias dev='check-dev.sh && exec start-dev.sh'
+
+TOV_ETC_PROFILE_LOG=${TOV_ETC_PROFILE_LOG}S
+export TOV_ETC_PROFILE_LOG
+
