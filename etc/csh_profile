@@ -16,11 +16,12 @@ if ( ! $?MANPATH ) setenv MANPATH ""
 setenv MANPATH "$TOV_PUB/man:$MANPATH"
 setenv MANPATH "$TOV_PUB/share/man:$MANPATH"
 
-setenv CPPFLAGS "-I$TOV_PUB/include"
+setenv CPPFLAGS             "-I$TOV_PUB/include"
 
-if (! $?LDFLAGS )          setenv LDFLAGS ""
-if (! $?LD_LIBRARY_PATH )  setenv LD_LIBRARY_PATH ""
-if (! $?LD_RUN_PATH )      setenv LD_RUN_PATH ""
+if (! $?LDFLAGS )           setenv LDFLAGS         ""
+if (! $?LD_LIBRARY_PATH )   setenv LD_LIBRARY_PATH ""
+if (! $?LD_RUN_PATH )       setenv LD_RUN_PATH     ""
+if (! $?ASAN_OPTIONS)       setenv ASAN_OPTIONS    symbolize=1,print_scariness=1
 
 foreach libdir ( lib lib64 )
     setenv LDFLAGS         "-L$TOV_PUB/$libdir $LDFLAGS"
@@ -32,3 +33,7 @@ setenv OPAMROOT $TOV_PUB/opam
 source $OPAMROOT/opam-init/init.csh
 
 alias dev 'check-dev.sh && exec start-dev.sh'
+
+if (! $?TOV_ETC_PROFILE_LOG) setenv TOV_ETC_PROFILE_LOG ''
+setenv TOV_ETC_PROFILE_LOG "${TOV_ETC_PROFILE_LOG}C"
+
