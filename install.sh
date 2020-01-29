@@ -1,20 +1,31 @@
 #!/bin/sh
 
+exit_code=0
+
 link_carefully () {
     local src; src="$1"; shift
     local dst; dst="$1"; shift
 
-    if [ -e "$dst" ] && ! [ -L "$dst" ]; then
-        echo >&2 "Refusing to overwrite ‘$dst’"
+    if [ -L "$dst" ]; then
+        if [ "$(readlink "$dst")" = "$dots$src" ]; then
+            return
+        fi
+        echo "Replacing $dst"
+        rm -f "$dst"
+    elif [ -e "$dst" ]; then
+        echo >&2 "Refusing to overwrite $dst"
+        exit_code=1
+        return
     else
-        echo ln -sf "$src" "$dst"
-        ln -sf "$src" "$dst"
+        echo "Linking $src -> $dst"
+        ln -s "$dots$src" "$dst"
     fi
 }
 
 link_tree () {
     local src; src="$1"; shift
     local dst; dst="$1"; shift
+    local dots; dots="$1"; shift
     local path
     local base
 
@@ -22,13 +33,16 @@ link_tree () {
         mkdir -p "$dst"
         ls "$src/" | while read path; do
             base=$(basename "$path")
-            link_tree "$src/$base" "$dst/$base"
+            link_tree "$src/$base" "$dst/$base" "../$dots"
         done
     else
-        echo ln -sf "$src" "$dst"
+        link_carefully "$src" "$dst" "$dots"
     fi
 }
 
 cd "$(dirname "$0")"
 link_tree bin211 bin
 link_tree man211 man
+
+exit $exit_code
+
