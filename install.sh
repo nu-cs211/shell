@@ -8,7 +8,7 @@ link_carefully () {
         echo >&2 "Refusing to overwrite ‘$dst’"
     else
         echo ln -sf "$src" "$dst"
-        # ln -sf "$src" "$dst"
+        ln -sf "$src" "$dst"
     fi
 }
 
