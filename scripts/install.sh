@@ -40,7 +40,8 @@ link_tree () {
     fi
 }
 
-cd "$(dirname "$0")"
+cd "$TOV_PUB"
+
 link_tree bin211 bin
 link_tree man211 man
 
