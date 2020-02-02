@@ -1,5 +1,9 @@
 #!/bin/sh
 
+# Everything should be public
+umask 000
+
+# Remember if an error happened
 exit_code=0
 
 link_carefully () {
@@ -15,7 +19,6 @@ link_carefully () {
     elif [ -e "$dst" ]; then
         echo >&2 "Refusing to overwrite $dst"
         exit_code=1
-        return
     else
         echo "Linking $src -> $dst"
         ln -s "$dots$src" "$dst"
