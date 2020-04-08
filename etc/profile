@@ -1,4 +1,5 @@
 # vim:se ft=sh:
 umask 077
 TOV_PUB=/home/jesse/pub; export TOV_PUB
+PATH=$TOV_PUB/bin:$PATH; export PATH
 alias dev="$TOV_PUB/bin/check-dev.sh && exec $TOV_PUB/bin/start-dev.sh"
