@@ -1,39 +1,4 @@
 # vim:se ft=csh:
-
 umask 077
-
-setenv TOV_PUB "/home/jesse/pub"
-setenv URL211  "https://users.cs.northwestern.edu/~jesse/course/cs211"
-
-# TODO: Get rid of this:
-setenv RPS211  '%{[0;2m%}(%{[0;34m%}d%{[0;2m%})%{[0m%}'
-
-set path = (/home/software/rust/bin $path)
-set path = ($TOV_PUB/rust/cargo/bin $path)
-set path = ($TOV_PUB/bin $path)
-
-if ( ! $?MANPATH ) setenv MANPATH ""
-setenv MANPATH "$TOV_PUB/man:$MANPATH"
-setenv MANPATH "$TOV_PUB/share/man:$MANPATH"
-
-setenv CPPFLAGS             "-I$TOV_PUB/include"
-
-if (! $?LDFLAGS )           setenv LDFLAGS         ""
-if (! $?LD_LIBRARY_PATH )   setenv LD_LIBRARY_PATH ""
-if (! $?LD_RUN_PATH )       setenv LD_RUN_PATH     ""
-if (! $?ASAN_OPTIONS)       setenv ASAN_OPTIONS    symbolize=1,print_scariness=1
-
-foreach libdir ( lib lib64 )
-    setenv LDFLAGS         "-L$TOV_PUB/$libdir $LDFLAGS"
-    setenv LD_LIBRARY_PATH "$TOV_PUB/${libdir}:$LD_LIBRARY_PATH"
-    setenv LD_RUN_PATH     "$TOV_PUB/${libdir}:$LD_RUN_PATH"
-end
-
-setenv OPAMROOT $TOV_PUB/opam
-source $OPAMROOT/opam-init/init.csh
-
-alias dev 'check-dev.sh && exec start-dev.sh'
-
-if (! $?TOV_ETC_PROFILE_LOG) setenv TOV_ETC_PROFILE_LOG ''
-setenv TOV_ETC_PROFILE_LOG "${TOV_ETC_PROFILE_LOG}C"
-
+setenv TOV_PUB /home/jesse/pub
+alias dev "$TOV_PUB/bin/check-dev.sh && exec $TOV_PUB/bin/start-dev.sh"
