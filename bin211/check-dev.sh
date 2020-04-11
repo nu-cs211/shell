@@ -1,6 +1,18 @@
 #!/bin/sh
 # vim: ts=4 noet
 
+unavailable () {
+    fmt >&2 <<-....EOF
+		dev: error: The CS 211 dev environment isn’t available on
+		$(hostname). Please try connecting to a different server.
+
+		(A list of available login servers may be found at
+		http://it.eecs.northwestern.edu/info/2015/11/03/info-labs.html.)
+....EOF
+
+exit 2
+}
+
 cc_version () {
     cc --version 2>/dev/null |
         head -1 |
@@ -12,22 +24,18 @@ if [ "$DEV211" = 1 ]; then
     exit 1
 fi
 
+case "$(hostname)" in
+    murphy.*)
+        unavailable
+        ;;
+esac
+
 case "$(cc_version)" in
     8.*|9.*)
         exit 0
         ;;
-    *)
-        which scl >/dev/null 2>&1 && exit 0
-        ;;
 esac
 
-fmt >&2 <<-EOF
-	dev: error: The CS 211 dev environment isn’t available on
-	$(hostname). Please try connecting to a different server.
-
-	(A list of available login servers may be found at
-	http://it.eecs.northwestern.edu/info/2015/11/03/info-labs.html.)
-
-EOF
-
-exit 2
+if ! which scl >/dev/null 2>&1; then
+	unavailable
+fi
