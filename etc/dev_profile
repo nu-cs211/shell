@@ -9,14 +9,23 @@ _prepend211 () {
 
     local each
     for each; do
-        if [ -n "$value" ]; then
-            value=${each}${sep}${value}
-        else
-            value=${each}
-        fi
+        value=${each}${value:+${sep}}${value}
     done
 
     eval "$name=\$value; export $name"
+}
+
+_default_manpath='
+    /usr/man
+    /usr/share/man
+    /usr/X11R6/man
+    /usr/local/man
+    /usr/local/share/man
+'
+
+_manpath211 () {
+    sed 2>/dev/null -E '/^MANPATH[[:space:]]+/ !d; s///' /etc/man.config ||
+        echo $_default_manpath
 }
 
 umask 077
@@ -36,6 +45,13 @@ _prepend211 PATH : \
     /home/software/rust/bin \
     $TOV_PUB/rust/cargo/bin \
     $TOV_PUB/bin
+
+if [ -z "$MANPATH" ]; then
+    export MANPATH
+    for dir in $(_manpath211); do
+        _prepend211 MANPATH : $dir
+    done
+fi
 
 _prepend211 MANPATH : \
     $TOV_PUB/man \
