@@ -61,6 +61,9 @@ _prepend211 PKG_CONFIG_PATH : \
     $TOV_PUB/lib/pkgconfig \
     $TOV_PUB/lib64/pkgconfig
 
+PYTHONHOME=$TOV_PUB; export PYTHONHOME
+unset PYTHONPATH
+
 : ${CC:=cc}
 : ${CXX:=c++}
 : ${CPPFLAGS:=-I$TOV_PUB/include}
