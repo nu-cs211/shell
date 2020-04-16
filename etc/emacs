@@ -1,4 +1,4 @@
-;; vim: set ft=lisp :
+;; CS 211 Emacs configuration
 
 (defun cs211-c-initialization-hook ()
   (define-key c-mode-base-map "\C-m" 'c-context-line-break))
@@ -32,3 +32,5 @@
 ;;
 
 (global-set-key "\C-x\C-m" 'compile)
+
+;; vim: se ft=lisp:

@@ -1,9 +1,12 @@
 #!/bin/sh
+# vim:se sw=4:
 
-which_program () {
+preferred_shells="$1 $DEV_SHELL fish zsh bash ksh tcsh sh"
+
+which_first () {
     local each
     for each in "$@"; do
-        if which $each 2>/dev/null; then
+        if PATH=$TOV_PUB/bin:$PATH which $each 2>/dev/null; then
             return
         fi
     done
@@ -11,17 +14,21 @@ which_program () {
     false
 }
 
-if ! shell=$(which_program zsh bash ksh tcsh sh); then
+if ! SHELL=$(which_first $preferred_shells); then
     echo>&2 'dev: can’t find a shell to start. Please ask for help.'
     exit 10
 fi
+export SHELL
 
-test -f $HOME/.zshrc ||
-    echo "# Created automatically for CS 211" > $HOME/.zshrc
+DEV211=1
+export DEV211
 
 if SCL=$(which scl 2>/dev/null); then
-    DEV211=1 RPS1=$RPS211 exec "$SCL" enable devtoolset-8 $shell
+    exec "$SCL" enable devtoolset-8 "
+        . $TOV_PUB/etc/dev_profile
+        exec $SHELL -l
+    "
 else
-    DEV211=1 exec $shell
+    . $TOV_PUB/etc/dev_profile
+    exec $SHELL -l
 fi
-

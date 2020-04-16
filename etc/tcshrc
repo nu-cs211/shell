@@ -1,0 +1,5 @@
+# CS 211 tcsh configuration
+
+source /home/jesse/pub/etc/csh_profile
+
+# vim: se ft=tcsh:
