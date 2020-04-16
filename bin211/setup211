@@ -1,0 +1,260 @@
+#!/usr/bin/env bash
+
+set -e
+
+files_to_install='tcshrc emacs'
+srcdir=/home/jesse/pub/etc/
+dstdir=${HOME%/}/
+prog=${0##*/}
+mode=backup
+
+usage () {
+    cat <<-EOF
+	Usage: ${prog} [-b|-f|-i|-n] [DESTDIR]
+	
+	Options:
+	    -b, --backup         Backup existing files (DEFAULT)
+	    -f, --force          Overwrite existing files without backing up
+	    -i, --interactive    Ask (interactively) what to do
+	    -n, --no-clobber     Never overwrite existing files
+	    -h, --help           Display this help
+	
+EOF
+}
+
+set_color () {
+    fish -c "set_color $*"
+}
+
+define_colors () {
+    local color
+    for color; do
+        eval "$color=\$(set_color $color)"
+        eval "b_$color=\$(set_color --bold $color)"
+    done
+}
+
+define_colors normal red blue cyan magenta white yellow green
+
+file_c=$cyan
+dir_c=$blue
+error_c=$b_red
+warning_c=$magenta
+key_c=$white
+question_c=$green
+
+log_action () {
+    echo " ${normal}• $1$normal"
+}
+
+backup_file () {
+    test -e "$1" || return 0
+    local dst; dst=$1
+
+    local bak
+    local descr
+    case "$dst" in
+        *.pre211\~*)
+            bak=$dst\~
+            descr='older'
+            ;;
+        *.pre211)
+            bak=$dst\~
+            descr='previous'
+            ;;
+        *)
+            bak=$dst.pre211
+            descr='your existing'
+            ;;
+    esac
+
+    backup_file "$bak"
+    mv "$dst" "$bak"
+    log_action "Saved $descr ${dst##*/} as ${bak##*/}"
+}
+
+print_key () {
+    printf '%s[%s%s%s]%s' "$normal" "$key_c" "$1" "$normal"
+}
+
+show_choices () {
+    cat >&2 <<-....EOF
+	
+	You already have a $file_c${2##*/}$normal. You can:
+	  • show the $(print_key d)ifference
+	  • save a $(print_key b)ackup
+	  • $(print_key f)orce remove and replace
+	  • do $(print_key n)ot clobber existing file; skip this one
+	  • $(print_key q)uit (don’t do anything else)
+....EOF
+}
+
+get_choice () {
+    show_choices "$1" "$2"
+    while true; do
+        local choice
+        echo
+        read -p "${question_c}What would you like to do $(
+                print_key dbfnq)$question_c? $white" choice ||
+            exit 0
+
+        case "$choice" in
+            b|B)
+                mode=backup should_write_file "$1" "$2"
+                return
+                ;;
+
+            d|D)
+                PYGOPTS=-ldiff view-src.sh <(diff -U3 "$1" "$2")
+                ;;
+
+            f|F)
+                mode=force should_write_file "$1" "$2"
+                return
+                ;;
+
+            n|N)
+                mode=no-clobber should_write_file "$1" "$2"
+                return
+                ;;
+
+            q|Q)
+                exit 0
+                ;;
+
+            *)
+                echo >&2 "${warning_c}Sorry, I didn’t understand.$normal"
+                show_choices "$1" "$2"
+                ;;
+        esac
+    done
+}
+
+should_write_file () {
+    test -e "$2" || return 0
+
+    case $mode in
+        backup)
+            backup_file "$2"
+            ;;
+
+        no-clobber)
+            log_action "Left existing $file_c$2$normal alone"
+            false
+            ;;
+
+        force)
+            rm -f "$2"
+            log_action "Removed old $file_c$2"
+            ;;
+
+        interactive)
+            get_choice "$1" "$2"
+            ;;
+    esac
+}
+
+show_message () {
+    echo "$white$prog: ${1}${2}:${normal} ${3}"
+}
+
+show_warning () {
+    show_message "$warning_c" warning "$*"
+}
+
+show_error () {
+    show_message "$error_c" error "$*"
+}
+
+replace_file () {
+    local src; src=${srcdir}$1
+    local dst; dst=${dstdir}.$1
+
+    if ! [ -e "$src" ]; then
+        exec >&2
+        show_error "Could not install ${file_c}${dst##*/}"
+        echo "${white}This is quite surprising. Please report a bug.$normal"
+        exit 1
+    fi
+
+    if diff "$src" "$dst" >/dev/null 2>&1; then
+        show_warning >&2 "You already have my $file_c${dst##*/}$normal; skipping..."
+        return 0
+    fi
+
+    if should_write_file "$src" "$dst"; then
+        cp "$src" "$dst"
+        log_action "Installed $file_c${dst##*/}$normal to $dir_c$dstdir"
+    fi
+}
+
+while [ -n "$1" ]; do
+    case "$1" in
+        -h*|--help)
+            usage
+            exit 0
+            ;;
+        -b|--backup)
+            mode=backup
+            shift
+            ;;
+        -b*)
+            mode=backup
+            set -- "-${@#-?}"
+            ;;
+        -f|--force)
+            mode=force
+            shift
+            ;;
+        -f*)
+            mode=force
+            set -- "-${@#-?}"
+            ;;
+        -i|--interactive)
+            mode=interactive
+            shift
+            ;;
+        -i*)
+            mode=interactive
+            set -- "-${@#-?}"
+            ;;
+        -n|--no-clobber)
+            mode=no-clobber
+            shift
+            ;;
+        -n*)
+            mode=no-clobber
+            set -- "-${@#-?}"
+            ;;
+        --)
+            shift
+            break
+            ;;
+        -*)
+            exec >&2
+            echo "${prog}: unknown option: $1"
+            echo
+            usage
+            exit 2
+            ;;
+        *)
+            break
+            ;;
+    esac
+done
+
+if [ -n "$1" ]; then
+    dstdir=${1%/}/
+fi
+
+usage_error=false
+if $usage_error; then
+    usage
+    exit 2
+fi
+
+echo "Installing CS 211’s default dotfiles to $dir_c$dstdir$normal..."
+for file in $files_to_install; do
+    replace_file "$file"
+done
+echo "Installation complete."

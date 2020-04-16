@@ -17,7 +17,7 @@ create_tmpfile () {
 }
 
 colorize () {
-    pygmentize -P style=${STYLE:-lovelace} "$@"
+    pygmentize -P style=${STYLE:-lovelace} $PYGOPTS "$1"
 }
 
 header_line () {
@@ -54,7 +54,7 @@ process_args () {
 
     local result; result=0
     local filename
-    for filename in "$@"; do
+    for filename; do
         if ! [ -r "$filename" ]; then
             exec >&2
             echo "${progname}: error: could not read file: $filename"
