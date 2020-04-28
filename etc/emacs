@@ -43,6 +43,35 @@
 
 
 ;;
+;; Allow colors in shell
+;;
+
+(require 'xterm-color)
+
+(setq comint-output-filter-functions
+      (remove 'ansi-color-process-output comint-output-filter-functions))
+
+(defun setup-xterm-color-for-comint ()
+  ;; Disable font-locking in this buffer to improve performance
+  (font-lock-mode -1)
+  ;; Prevent font-locking from being re-enabled in this buffer
+  (make-local-variable 'font-lock-function)
+  (setq font-lock-function (lambda (_) nil))
+  ;; Send out put through xterm-color
+  (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t))
+
+(add-hook 'shell-mode-hook 'setup-xterm-color-for-comint)
+(add-hook 'gdb-inferior-io-mode-hook 'setup-xterm-color-for-comint)
+
+
+;;
+;; Make the mouse work
+;;
+
+(xterm-mouse-mode)
+
+
+;;
 ;; Keybindings
 ;;
 
