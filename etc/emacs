@@ -35,7 +35,7 @@
 
 (defun cs211-c-mode-common-hook ()
   (c-set-style "CS211")
-  (setq c-auto-newline    t
+  (setq c-auto-newline    nil
         c-basic-offset    4
         tab-width         8
         indent-tabs-mode  nil))
