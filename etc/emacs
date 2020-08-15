@@ -68,10 +68,27 @@
 
 
 ;;
-;; Make the mouse work
+;; Make the mouse work!
 ;;
 
+; Enable clicking and selecting
 (xterm-mouse-mode)
+
+; Enable scrolling
+(global-set-key [mouse-4] 'previous-line)
+(global-set-key [mouse-5] 'next-line)
+
+(defun other-window-up ()
+  (interactive)
+  (scroll-other-window -1))
+
+(defun other-window-down ()
+  (interactive)
+  (scroll-other-window 1))
+
+; Shift-scroll scrolls the other window
+(global-set-key [S-mouse-4] 'other-window-up)
+(global-set-key [S-mouse-5] 'other-window-down)
 
 
 ;;
