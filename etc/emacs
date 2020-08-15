@@ -4,6 +4,8 @@
 ;; Backup files
 ;;
 
+; Put backup files in ~/.saves instead of littering up
+; everywhere else.
 (setq backup-directory-alist    '(("." . "~/.saves"))
       backup-by-copying         t
       delete-old-versions       t
@@ -24,9 +26,9 @@
                             brace-elseif-brace
                             brace-catch-brace
                             defun-close-semi
-			    empty-defun-braces
-			    list-close-comma
-			    scope-operator))
+                            empty-defun-braces
+                            list-close-comma
+                            scope-operator))
     (c-offsets-alist     . ((arglist-close . c-lineup-arglist))))
   "CS211 C(++) Style")
 (c-add-style "cs211" cs211-c-style)
