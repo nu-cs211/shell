@@ -92,6 +92,23 @@
 
 
 ;;
+;; GDB setup
+;;
+
+; Divert M-x gdb to M-x gud-gdb (the older, simpler UI).
+(advice-add 'gdb :override #'gud-gdb)
+
+; Prevent editing the prompt.
+(setq comint-prompt-read-only t)
+
+; Make sure we see the code (not for gud-gdb).
+(setq gdb-show-main t)
+
+; Use the 6-window UI (not for gud-gdb).
+(setq gdb-many-windows t)
+
+
+;;
 ;; Keybindings
 ;;
 
