@@ -11,35 +11,38 @@
       kept-old-versions         2
       version-control           t)
 
+
 ;;
-;; Automatic indenting
+;; C indentation
 ;;
 
-(defun cs211-c-initialization-hook ()
-  (define-key c-mode-base-map "\C-m" 'c-context-line-break))
-(add-hook 'c-initialization-hook 'cs211-c-initialization-hook)
-
+; Our C indentation style
 (defconst cs211-c-style
   '("k&r"
-    (c-tab-always-indent        . t)
-    (c-cleanup-list             . (brace-else-brace
-                                   brace-elseif-brace
-                                   brace-catch-brace
-                                   defun-close-semi
-                                   empty-defun-braces
-                                   list-close-comma
-                                   scope-operator))
-    (c-offsets-alist            . ((arglist-close . c-lineup-arglist))))
+    (c-tab-always-indent . t)
+    (c-cleanup-list      . (brace-else-brace
+                            brace-elseif-brace
+                            brace-catch-brace
+                            defun-close-semi
+			    empty-defun-braces
+			    list-close-comma
+			    scope-operator))
+    (c-offsets-alist     . ((arglist-close . c-lineup-arglist))))
   "CS211 C(++) Style")
-(c-add-style "CS211" cs211-c-style)
+(c-add-style "cs211" cs211-c-style)
 
+; In C mode, enable our style and some input settings.
 (defun cs211-c-mode-common-hook ()
-  (c-set-style "CS211")
-  (setq c-auto-newline    nil
-        c-basic-offset    4
-        tab-width         8
-        indent-tabs-mode  nil))
+  (c-set-style "cs211")
+  (setq c-basic-offset    4      ; indent by 4
+        tab-width         8      ; tab characters are worth 8
+        indent-tabs-mode  nil))  ; but don't use tab characters
 (add-hook 'c-mode-common-hook 'cs211-c-mode-common-hook)
+
+; In C mode, Enter key also indents.
+(defun cs211-c-mode-init ()
+  (define-key c-mode-base-map "\C-m" 'c-context-line-break))
+(add-hook 'c-initialization-hook 'cs211-c-mode-init)
 
 
 ;;
