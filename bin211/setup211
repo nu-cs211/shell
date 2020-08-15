@@ -2,7 +2,7 @@
 
 set -e
 
-files_to_install='tcshrc emacs'
+files_to_install='tcshrc emacs gdbinit'
 srcdir=/home/jesse/pub/etc/
 dstdir=${HOME%/}/
 prog=${0##*/}
