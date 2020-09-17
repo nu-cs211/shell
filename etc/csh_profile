@@ -1,5 +1,0 @@
-# vim:se ft=csh:
-umask 077
-setenv TOV_PUB /home/jesse/pub
-set path = ($TOV_PUB/bin $path)
-alias 211 "$TOV_PUB/bin/check-211.sh && exec $TOV_PUB/bin/start-211.sh"

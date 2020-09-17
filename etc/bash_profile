@@ -1,0 +1,5 @@
+# CS 211 bash configuration
+
+. /home/jesse/pub/etc/profile.sh
+
+# vim: se ft=bash:

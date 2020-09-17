@@ -1,5 +1,0 @@
-# vim:se ft=sh:
-umask 077
-TOV_PUB=/home/jesse/pub; export TOV_PUB
-PATH=$TOV_PUB/bin:$PATH; export PATH
-alias 211="$TOV_PUB/bin/check-211.sh && exec $TOV_PUB/bin/start-211.sh"
