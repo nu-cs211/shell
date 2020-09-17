@@ -2,4 +2,4 @@
 umask 077
 setenv TOV_PUB /home/jesse/pub
 set path = ($TOV_PUB/bin $path)
-alias dev "$TOV_PUB/bin/check-dev.sh && exec $TOV_PUB/bin/start-dev.sh"
+alias 211 "$TOV_PUB/bin/check-211.sh && exec $TOV_PUB/bin/start-211.sh"

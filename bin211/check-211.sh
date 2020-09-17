@@ -3,7 +3,7 @@
 
 unavailable () {
     fmt >&2 <<-....EOF
-		dev: error: The CS 211 dev environment isn’t available on
+		211: error: The CS 211 development environment isn’t available on
 		$(hostname). Please try connecting to a different server.
 
 		(A list of available login servers may be found at
@@ -20,7 +20,7 @@ cc_version () {
 }
 
 if [ "$DEV211" = 1 ]; then
-    echo >&2 'dev: error: already loaded'
+    echo >&2 '211: error: already loaded'
     exit 1
 fi
 

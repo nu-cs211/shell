@@ -15,7 +15,7 @@ which_first () {
 }
 
 if ! SHELL=$(which_first $preferred_shells); then
-    echo>&2 'dev: can’t find a shell to start. Please ask for help.'
+    echo>&2 '211: can’t find a shell to start. Please ask for help.'
     exit 10
 fi
 export SHELL
@@ -25,10 +25,10 @@ export DEV211
 
 if SCL=$(which scl 2>/dev/null); then
     exec "$SCL" enable gcc-toolset-9 "
-        . $TOV_PUB/etc/dev_profile
+        . $TOV_PUB/etc/211_profile
         exec $SHELL -l
     "
 else
-    . $TOV_PUB/etc/dev_profile
+    . $TOV_PUB/etc/211_profile
     exec $SHELL -l
 fi
