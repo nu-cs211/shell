@@ -24,7 +24,7 @@ DEV211=1
 export DEV211
 
 if SCL=$(which scl 2>/dev/null); then
-    exec "$SCL" enable devtoolset-8 "
+    exec "$SCL" enable gcc-toolset-9 "
         . $TOV_PUB/etc/dev_profile
         exec $SHELL -l
     "
