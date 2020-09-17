@@ -2,8 +2,11 @@
 
 set -e
 
+export TOV_PUB=/home/jesse/pub
+export PATH=$TOV_PUB/bin:$PATH
+
 files_to_install='tcshrc emacs gdbinit'
-srcdir=/home/jesse/pub/etc/
+srcdir=$TOV_PUB/etc/
 dstdir=${HOME%/}/
 prog=${0##*/}
 mode=backup
