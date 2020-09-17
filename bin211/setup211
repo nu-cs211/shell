@@ -188,6 +188,16 @@ replace_file () {
     fi
 }
 
+
+###
+### START HERE
+###
+
+if [ "$USER" = jesse ]; then
+    echo>&2 "You don't want to run this, professor."
+    exit 1
+fi
+
 while [ -n "$1" ]; do
     case "$1" in
         -h*|--help)
