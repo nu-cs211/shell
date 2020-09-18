@@ -51,10 +51,10 @@
 ;; Allow colors in shell
 ;;
 
-(require 'xterm-color)
+(add-to-list 'load-path
+             (format "%s/share/emacs/site-lisp" (getenv "TOV_PUB")))
 
-(setq comint-output-filter-functions
-      (remove 'ansi-color-process-output comint-output-filter-functions))
+(require 'xterm-color)
 
 (defun setup-xterm-color-for-comint ()
   ;; Disable font-locking in this buffer to improve performance
@@ -62,12 +62,13 @@
   ;; Prevent font-locking from being re-enabled in this buffer
   (make-local-variable 'font-lock-function)
   (setq font-lock-function (lambda (_) nil))
-  ;; Send out put through xterm-color
+  ;; Send output through xterm-color
   (add-hook 'comint-preoutput-filter-functions 'xterm-color-filter nil t))
 
-(add-hook 'shell-mode-hook 'setup-xterm-color-for-comint)
-(add-hook 'gdb-inferior-io-mode-hook 'setup-xterm-color-for-comint)
+(setq comint-output-filter-functions
+      (remove 'ansi-color-process-output comint-output-filter-functions))
 
+(add-hook 'shell-mode-hook 'setup-xterm-color-for-comint)
 
 ;;
 ;; Make the mouse work!
@@ -97,9 +98,6 @@
 ;; GDB setup
 ;;
 
-; Divert M-x gdb to M-x gud-gdb (the older, simpler UI).
-(advice-add 'gdb :override #'gud-gdb)
-
 ; Prevent editing the prompt.
 (setq comint-prompt-read-only t)
 
@@ -109,6 +107,56 @@
 ; Use the 6-window UI (not for gud-gdb).
 (setq gdb-many-windows t)
 
+; Finds a window matching `regexp`.
+(defun find-window-matching (regexp &optional windows)
+  (catch 'done
+    (dolist (window (or windows (window-list)))
+      (when (string-match-p regexp (format "%s" (window-buffer window)))
+        (throw 'done window)))))
+
+; Selects the first window matching `regexp`
+(defun select-window-matching (regexp &optional quiet)
+  (interactive)
+  (let ((window (find-window-matching regexp)))
+    (cond
+      (window      (select-window window))
+      ((not quiet) (message "No such window")))))
+
+; Selects the GUD command window.
+(defun select-gud-command-window (&optional quiet)
+  (interactive)
+  (select-window-matching "^[*]gud-.*[*]$" quiet))
+
+; Selects the GUD I/O window.
+(defun select-gud-io-window (&optional quiet)
+  (interactive)
+  (select-window-matching "^[*]input/output of .*[*]$" quiet))
+
+
+; Sends EOF to the inferior process and displays "^D" in the buffer.
+(defun send-eof-and-leave ()
+  (interactive)
+  (comint-send-eof)
+  (select-gud-command-window t))
+
+; Prevents input echo and makes C-d work.
+(defun configure-gud-io-window ()
+  ;; Don't echo input
+  (setq comint-process-echoes t)
+  ;; Make ^D work
+  (local-set-key (kbd "C-d") 'send-eof-and-leave)
+  ;; Make color work nicely here
+  (setup-xterm-color-for-comint))
+
+(add-hook 'gdb-inferior-io-mode-hook 'configure-gud-io-window)
+
+; Makes this window dedicated and binds M-i to switch to the I/O window.
+(defun configure-gud-control-window ()
+  (set-window-dedicated-p (selected-window) t)
+  (local-set-key (kbd "M-i") 'select-gud-io-window))
+
+(advice-add 'gdb-setup-windows :after
+            'configure-gud-control-window)
 
 ;;
 ;; Keybindings
