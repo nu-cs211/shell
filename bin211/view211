@@ -86,7 +86,7 @@ main () {
 
     eprintf 'done.\n'
 
-    eval "$(resize)"
+    eval "$(resize -u)"
     line_count=$(wc -l < "$tmpfile")
     line_avail=$(expr ${LINES:-25} - 2)
 
