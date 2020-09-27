@@ -2,4 +2,8 @@
 
 source /home/jesse/pub/etc/profile.csh
 
+if ( -e ~/.cshaliases ) then
+    source ~/.cshaliases
+endif
+
 # vim: se ft=tcsh:
