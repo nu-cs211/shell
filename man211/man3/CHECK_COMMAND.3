@@ -15,18 +15,20 @@
 .B "#include <lib211.h>"
 .P
 .my_br
-\fBCHECK_COMMAND\fR(\fBconst char *\fIcommand\fR,
-              \fBconst char *\fIactual_input\fR,
-              \fBconst char *\fIexpected_output\fR,
-              \fBconst char *\fIexpected_error\fR,
-              \fBint\fR         \fIexpected_exit_code\fR);
+\fBvoid CHECK_COMMAND\fR(
+        \fBconst char *\fIcommand\fR,
+        \fBconst char *\fIactual_input\fR,
+        \fBconst char *\fIexpected_output\fR,
+        \fBconst char *\fIexpected_error\fR,
+        \fBint\fR         \fIexpected_exit_code\fR);
 .P
 .my_br
-\fBCHECK_EXEC\fR(\fBconst char *\fIargv\fR[],
-           \fBconst char *\fIactual_input\fR,
-           \fBconst char *\fIexpected_output\fR,
-           \fBconst char *\fIexpected_error\fR,
-           \fBint\fR         \fIexpected_exit_code\fR);
+\fBvoid CHECK_EXEC\fR(
+        \fBconst char *\fIargv\fR[],
+        \fBconst char *\fIactual_input\fR,
+        \fBconst char *\fIexpected_output\fR,
+        \fBconst char *\fIexpected_error\fR,
+        \fBint\fR         \fIexpected_exit_code\fR);
 .P
 .my_br
 \fBextern const char *\fRANY_OUTPUT;
