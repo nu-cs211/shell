@@ -121,9 +121,9 @@ thereto:
 .PP
 .sh mkdir check
 .sh cd check
-.sh wget -O- $URL211/hw/hw01.tgz | tar zxvk
+.sh tar -xvkf ~cs211/hw/hw01.tgz
 .PP
-(Note that giving the \fIk\fR option to
+(Note that giving the \fIk\fR flag to
 .BR tar (1)
 prevents it from overwriting existing files, such as your homework
 solution.)
@@ -154,13 +154,11 @@ The full documentation for
 .BR gsc (1)
 is in its own manual page.
 .PP
-You may also find useful the manual pages for
+You may also find the manual pages for
+.BR cd (1),
 .BR less (1),
 .BR make (1),
 .BR mkdir (1),
-.BR rm (1),
-.BR tar (1),
-.BR wget (1),
-and
-.BR zshbuiltins (1)
-(for the \[lq]cd\[rq] command).
+.BR rm (1), and
+.BR tar (1)
+useful.
