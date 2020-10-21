@@ -108,7 +108,7 @@ get_choice () {
                 ;;
 
             d|D)
-                PYGOPTS=-ldiff view-src.sh <(diff -U3 "$1" "$2")
+                PYGOPTS=-ldiff view211 <(diff -U3 "$1" "$2")
                 ;;
 
             f|F)
