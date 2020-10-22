@@ -30,10 +30,8 @@ setenv LD_RUN_PATH      "$TOV_PUB/lib:$LD_RUN_PATH"
 if (! $?ASAN_OPTIONS)   setenv ASAN_OPTIONS  symbolize=1,print_scariness=1
 if (! $?BROWSER)        setenv BROWSER       w3m
 
-setenv URL211  https://users.cs.northwestern.edu/~jesse/course/cs211
-setenv HW211   ${URL211}/hw
-setenv LAB211  ${URL211}/lab
-setenv LEC211  ${URL211}/lec
+if (! $?RUSTUP_TOOLCHAIN) setenv RUSTUP_TOOLCHAIN  stable
+if (! $?RUSTUP_HOME)      setenv RUSTUP_HOME       "$TOV_PUB/rust/rustup"
 
 # Don't open X11 emacs
 unsetenv DISPLAY

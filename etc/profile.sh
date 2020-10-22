@@ -41,15 +41,10 @@ export ASAN_OPTIONS
 : ${BROWSER:=w3m}
 export BROWSER
 
-URL211=https://users.cs.northwestern.edu/~jesse/course/cs211
-HW211=$URL211/hw
-LAB211=$URL211/lab
-LEC211=$URL211/lec
-
-export URL211
-export HW211
-export LAB211
-export LEC211
+: ${RUSTUP_TOOLCHAIN:=stable}
+: ${RUSTUP_HOME:=$TOV_PUB/rust/rustup}
+export RUSTUP_TOOLCHAIN
+export RUSTUP_HOME
 
 # Don't open X11 emacs
 unset DISPLAY
