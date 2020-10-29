@@ -46,6 +46,23 @@
   (define-key c-mode-base-map "\C-m" 'c-context-line-break))
 (add-hook 'c-initialization-hook 'cs211-c-mode-init)
 
+;;
+;; Interactive functions for indenting
+;;
+
+(defun indent-buffer ()
+  "Indent the whole buffer."
+  (interactive)
+  (save-excursion
+    (indent-region (point-min) (point-max))
+    (message "Indented buffer.")))
+
+(defun indent-region-or-buffer ()
+  "Indent a region if selected, otherwise the whole buffer."
+  (interactive)
+  (if (region-active-p)
+    (indent-region (region-beginning) (region-end))
+    (indent-buffer)))
 
 ;;
 ;; Allow colors in shell
@@ -164,5 +181,6 @@
 
 (global-set-key "\C-x\C-m" 'compile)
 
+(global-set-key (kbd "C-M-\\")  'indent-region-or-buffer)
 
 ;; vim: se ft=lisp:
