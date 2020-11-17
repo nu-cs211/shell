@@ -47,4 +47,6 @@ export RUSTUP_TOOLCHAIN
 export RUSTUP_HOME
 
 # Don't open X11 emacs
-unset DISPLAY
+if [ -z "${KEEP_DISPLAY-}" ]; then
+    unset DISPLAY
+fi

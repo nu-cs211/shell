@@ -34,4 +34,4 @@ if (! $?RUSTUP_TOOLCHAIN) setenv RUSTUP_TOOLCHAIN  stable
 if (! $?RUSTUP_HOME)      setenv RUSTUP_HOME       "$TOV_PUB/rust/rustup"
 
 # Don't open X11 emacs
-unsetenv DISPLAY
+if (! $?KEEP_DISPLAY)     unsetenv DISPLAY
