@@ -37,6 +37,9 @@ export ASAN_OPTIONS
 : ${BROWSER:=browse211}
 export BROWSER
 
+: ${BAT_STYLE:=header,grip,snip}
+export BAT_STYLE
+
 : ${RUSTUP_TOOLCHAIN:=stable}
 : ${RUSTUP_HOME:=$PUB211/rust/rustup}
 export RUSTUP_TOOLCHAIN
