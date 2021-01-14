@@ -69,7 +69,7 @@
 ;;
 
 (add-to-list 'load-path
-             (format "%s/share/emacs/site-lisp" (getenv "TOV_PUB")))
+             (format "%s/share/emacs/site-lisp" (getenv "PUB211")))
 
 (require 'xterm-color)
 

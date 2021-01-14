@@ -5,8 +5,7 @@ set -e
 export PUB211=/home/cs211/pub
 export PATH=$PUB211/bin:$PATH
 
-files_to_install='tcshrc emacs gdbinit'
-srcdir=$TOV_PUB/etc/
+srcdir=$PUB211/etc/setup
 dstdir=${HOME%/}/
 prog=${0##*/}
 mode=backup
@@ -267,7 +266,7 @@ if $usage_error; then
 fi
 
 echo "Installing CS 211’s default dotfiles to $dir_c$dstdir$normal..."
-for file in $files_to_install; do
+for file in $srcdir/*; do
     replace_file "$file"
 done
 echo "Installation complete."
