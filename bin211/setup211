@@ -107,7 +107,7 @@ get_choice () {
                 ;;
 
             d|D)
-                PYGOPTS=-ldiff view211 <(diff -U3 "$1" "$2")
+                batdiff "$1" "$2"
                 ;;
 
             f|F)
