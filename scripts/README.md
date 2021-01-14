@@ -31,6 +31,5 @@
  2. When `bat` is updated, need to put:
       - new `bat.1` in `$PUB211/man211/man1/`
       - new `bat.fish` `$PUB21/etc/fish/completions/`
-      - new `bat.zsh` completions *somewhere* (TODO)
     To build these files, run `cargo build` in `$PUB211/src/bat`; then
     look in `target/`
