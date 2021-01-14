@@ -2,3 +2,6 @@
 	path = src/lib211
 	url = https://github.com/nu-cs211/lib211.git
 	update = rebase
+[submodule "src/bat"]
+	path = src/bat
+	url = https://github.com/sharkdp/bat.git
