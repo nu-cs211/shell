@@ -1,0 +1,14 @@
+#!/bin/sh
+
+HELP_URL_BASE=https://fishshell.com/docs/current
+
+if [ -z "${1-}" ]; then
+    echo>&2 "Usage: ${0##*/} URL"
+    exit 1
+fi
+
+if path="$(expr x"$1" : x'file://.*/doc/fish/\(.*\)')"; then
+    set -- "${HELP_URL_BASE}/${path}"
+fi
+
+exec browsh "$1"

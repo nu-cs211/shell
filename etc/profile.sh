@@ -38,7 +38,7 @@ export LD_RUN_PATH
 : ${ASAN_OPTIONS:=symbolize=1,print_scariness=1}
 export ASAN_OPTIONS
 
-: ${BROWSER:=w3m}
+: ${BROWSER:=browse211}
 export BROWSER
 
 : ${RUSTUP_TOOLCHAIN:=stable}
