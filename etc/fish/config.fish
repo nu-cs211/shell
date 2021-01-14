@@ -12,14 +12,3 @@
 # if status --is-interactive
 #   ...
 # end
-
-function _has_xterm_color_emacs
-    grep -sq xterm-color $HOME/.emacs
-end
-
-if [ $TERM = dumb ] && _has_xterm_color_emacs
-    switch $INSIDE_EMACS
-    case '*,comint'
-        set -x TERM ansi
-    end
-end
