@@ -12,9 +12,6 @@ setenv MANPATH "$PUB211/share/man:$PUB211/man:$MANPATH"
 if (! $?PKG_CONFIG_PATH) setenv PKG_CONFIG_PATH
 setenv PKG_CONFIG_PATH "$PUB211/lib/pkgconfig:$PKG_CONFIG_PATH"
 
-setenv PYTHONHOME "$PUB211"
-unsetenv PYTHONPATH
-
 if (! $?CC)        setenv CC cc
 if (! $?CXX)       setenv CXX c++
 if (! $?CPPFLAGS)  setenv CPPFLAGS "-I$PUB211/include"

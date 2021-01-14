@@ -15,10 +15,6 @@ export MANPATH
 PKG_CONFIG_PATH=$PUB211/pkgconfig:$PUB211/lib/pkgconfig:$PKG_CONFIG_PATH
 export PKG_CONFIG_PATH
 
-PYTHONHOME=$PUB211
-export PYTHONHOME
-unset PYTHONPATH
-
 : ${CC:=cc}
 : ${CXX:=c++}
 : ${CPPFLAGS:=-I$PUB211/include}
