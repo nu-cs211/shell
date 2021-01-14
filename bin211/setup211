@@ -2,8 +2,8 @@
 
 set -e
 
-export TOV_PUB=/home/jesse/pub
-export PATH=$TOV_PUB/bin:$PATH
+export PUB211=/home/cs211/pub
+export PATH=$PUB211/bin:$PATH
 
 files_to_install='tcshrc emacs gdbinit'
 srcdir=$TOV_PUB/etc/
@@ -52,7 +52,7 @@ log_action () {
 
 backup_file () {
     test -e "$1" || return 0
-    local dst; dst=$1
+    local dst=$1
 
     local bak
     local descr
@@ -170,8 +170,8 @@ show_error () {
 }
 
 replace_file () {
-    local src; src=${srcdir}$1
-    local dst; dst=${dstdir}.$1
+    local src=$1
+    local dst=${dstdir}.${1##*/}
 
     if ! [ -e "$src" ]; then
         exec >&2
@@ -196,7 +196,7 @@ replace_file () {
 ### START HERE
 ###
 
-if [ "$USER" = jesse ]; then
+if [ "$USER" = cs211 ]; then
     echo>&2 "You don't want to run this, professor."
     exit 1
 fi

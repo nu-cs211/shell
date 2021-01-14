@@ -43,7 +43,7 @@ link_tree () {
     fi
 }
 
-cd "$TOV_PUB"
+cd "$PUB211"
 
 link_tree bin211 bin
 link_tree man211 man

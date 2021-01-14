@@ -1,5 +1,5 @@
 # CS 211 bash configuration
 
-. /home/jesse/pub/etc/profile.sh
+. /home/cs211/pub/etc/profile.sh
 
 # vim: se ft=bash:

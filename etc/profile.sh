@@ -2,34 +2,34 @@
 
 umask 077
 
-TOV_PUB=/home/jesse/pub
-export TOV_PUB
+PUB211=/home/cs211/pub
+export PUB211
 
-PATH=$TOV_PUB/bin:$TOV_PUB/rust/cargo/bin:$PATH
+PATH=$PUB211/bin:$PUB211/rust/cargo/bin:$PATH
 export PATH
 
 : ${MANPATH:=/usr/local/share/man:/usr/local/man:/usr/X11R6/man:/usr/share/man:/usr/man}
-MANPATH=$TOV_PUB/share/man:$TOV_PUB/man:$MANPATH
+MANPATH=$PUB211/share/man:$PUB211/man:$MANPATH
 export MANPATH
 
-PKG_CONFIG_PATH=$TOV_PUB/pkgconfig:$TOV_PUB/lib/pkgconfig:$PKG_CONFIG_PATH
+PKG_CONFIG_PATH=$PUB211/pkgconfig:$PUB211/lib/pkgconfig:$PKG_CONFIG_PATH
 export PKG_CONFIG_PATH
 
-PYTHONHOME=$TOV_PUB
+PYTHONHOME=$PUB211
 export PYTHONHOME
 unset PYTHONPATH
 
 : ${CC:=cc}
 : ${CXX:=c++}
-: ${CPPFLAGS:=-I$TOV_PUB/include}
+: ${CPPFLAGS:=-I$PUB211/include}
 
 export CC
 export CXX
 export CPPFLAGS
 
-LDFLAGS=-L$TOV_PUB/lib${LDFLAGS:+ }$LDFLAGS
-LD_LIBRARY_PATH=$TOV_PUB/lib$LD_LIBRARY_PATH
-LD_RUN_PATH=$TOV_PUB/lib$LD_RUN_PATH
+LDFLAGS=-L$PUB211/lib${LDFLAGS:+ }$LDFLAGS
+LD_LIBRARY_PATH=$PUB211/lib$LD_LIBRARY_PATH
+LD_RUN_PATH=$PUB211/lib$LD_RUN_PATH
 
 export LDFLAGS
 export LD_LIBRARY_PATH
@@ -42,7 +42,7 @@ export ASAN_OPTIONS
 export BROWSER
 
 : ${RUSTUP_TOOLCHAIN:=stable}
-: ${RUSTUP_HOME:=$TOV_PUB/rust/rustup}
+: ${RUSTUP_HOME:=$PUB211/rust/rustup}
 export RUSTUP_TOOLCHAIN
 export RUSTUP_HOME
 
