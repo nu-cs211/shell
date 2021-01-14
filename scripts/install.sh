@@ -48,7 +48,6 @@ link_manual () {
     local dst_sect="$3" dst_name="$4"
 
     if man -w $dst_sect $dst_name >/dev/null 2>&1; then
-        echo>&2 "Manual already exists: $dst_name.$dst_sect"
         return
     fi
 
