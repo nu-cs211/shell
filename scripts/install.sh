@@ -43,10 +43,36 @@ link_tree () {
     fi
 }
 
+link_manual () {
+    local src_sect="$1" src_name="$2"
+    local dst_sect="$3" dst_name="$4"
+
+    if man -w $dst_sect $dst_name >/dev/null 2>&1; then
+        echo>&2 "Manual already exists: $dst_name.$dst_sect"
+        return
+    fi
+
+    if ! local src="$(man -w $src_sect $src_name 2>/dev/null)"; then
+        echo>&2 "Manual not found: $src_name.$src_sect"
+        return
+    fi
+
+    echo "Linking manual $src_name.$src_sect -> $dst_name.$dst_sect"
+
+    local dst_dir=man/man$dst_sect
+    local dst=$dst_dir/$dst_name.$dst_sect
+
+    mkdir -p "$dst_dir"
+    ln -s "$src" "$dst"
+}
+
 cd "$PUB211"
 
 link_tree bin211 bin
 link_tree man211 man
+
+link_manual 1 gcc 1 cc
+link_manual 1 g++ 1 c++
 
 exit $exit_code
 
