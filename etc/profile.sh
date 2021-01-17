@@ -34,7 +34,7 @@ export LD_RUN_PATH
 : ${ASAN_OPTIONS:=symbolize=1,print_scariness=1}
 export ASAN_OPTIONS
 
-: ${BROWSER:=browse211}
+: ${BROWSER:=lynx}
 export BROWSER
 
 : ${BAT_STYLE:=header,grip,snip}

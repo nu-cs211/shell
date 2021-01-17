@@ -25,7 +25,7 @@ setenv LD_LIBRARY_PATH  "$PUB211/lib:$LD_LIBRARY_PATH"
 setenv LD_RUN_PATH      "$PUB211/lib:$LD_RUN_PATH"
 
 if (! $?ASAN_OPTIONS)   setenv ASAN_OPTIONS  symbolize=1,print_scariness=1
-if (! $?BROWSER)        setenv BROWSER       browse211
+if (! $?BROWSER)        setenv BROWSER       lynx
 if (! $?BAT_STYLE)      setenv BAT_STYLE     header,grid,snip
 
 if (! $?RUSTUP_TOOLCHAIN) setenv RUSTUP_TOOLCHAIN  stable
