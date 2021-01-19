@@ -2,4 +2,4 @@
 
 . ~cs211/pub/etc/profile.sh
 
-exec fish
+exec ${SHELL211:-fish} "$@"
