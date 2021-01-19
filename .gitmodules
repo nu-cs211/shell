@@ -2,9 +2,8 @@
 	path = src/lib211
 	url = https://github.com/nu-cs211/lib211.git
 	update = rebase
+	active = true
 [submodule "src/bat"]
 	path = src/bat
 	url = https://github.com/sharkdp/bat.git
-[submodule]
-	active = src/*
-	active = :(exclude) src/bat
+	active = false
