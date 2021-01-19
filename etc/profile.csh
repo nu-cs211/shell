@@ -30,6 +30,3 @@ if (! $?BAT_STYLE)      setenv BAT_STYLE     header,grid,snip
 
 if (! $?RUSTUP_TOOLCHAIN) setenv RUSTUP_TOOLCHAIN  stable
 if (! $?RUSTUP_HOME)      setenv RUSTUP_HOME       "$PUB211/rust/rustup"
-
-# Don't open X11 emacs
-if (! $?KEEP_DISPLAY)     unsetenv DISPLAY

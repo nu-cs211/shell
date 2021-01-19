@@ -44,8 +44,3 @@ export BAT_STYLE
 : ${RUSTUP_HOME:=$PUB211/rust/rustup}
 export RUSTUP_TOOLCHAIN
 export RUSTUP_HOME
-
-# Don't open X11 emacs
-if [ -z "${KEEP_DISPLAY-}" ]; then
-    unset DISPLAY
-fi
