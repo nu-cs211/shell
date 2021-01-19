@@ -1,6 +1,8 @@
 # CS 211 tcsh configuration
 
-source /home/cs211/pub/etc/profile.csh
+if ( -e /home/cs211/pub/etc/profile.csh ) then
+    source /home/cs211/pub/etc/profile.csh
+endif
 
 if ( -e ~/.cshaliases ) then
     source ~/.cshaliases
