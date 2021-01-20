@@ -1,6 +1,7 @@
 [submodule "src/lib211"]
 	path = src/lib211
 	url = https://github.com/nu-cs211/lib211.git
+	branch = master
 	update = rebase
 	active = true
 [submodule "src/bat"]
