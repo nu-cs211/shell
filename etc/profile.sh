@@ -31,6 +31,10 @@ export LDFLAGS
 export LD_LIBRARY_PATH
 export LD_RUN_PATH
 
+# Suppress Make's default rules
+MAKEFLAGS=-r
+export MAKEFLAGS
+
 : ${ASAN_OPTIONS:=symbolize=1,print_scariness=1}
 export ASAN_OPTIONS
 
