@@ -1,7 +1,7 @@
 # CS 211 tcsh configuration
 
-if ( -e /home/cs211/pub/etc/profile.csh ) then
-    source /home/cs211/pub/etc/profile.csh
+if ( -e ~cs211/pub/etc/bootstrap-wi2021 ) then
+    source ~cs211/pub/etc/bootstrap-wi2021
 endif
 
 if ( -e ~/.cshaliases ) then

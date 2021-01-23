@@ -1,0 +1,4 @@
+# vim: ft=tcsh:
+
+alias 211 exec ~cs211/pub/bin/211
+echo 'Run ‘211’ for the CS 211 development environment.'
