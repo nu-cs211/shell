@@ -3,5 +3,9 @@
 alias 211 exec ~cs211/pub/bin/env211
 
 if (! $?EMACS && ! $?PUB211 && { (/usr/bin/tty >&/dev/null) }) then
+    echo '[To uninstall this CS 211 shell configuration, edit your ~/.tcshrc to'
+    echo 'remove the if-then-endif that loads ~cs211/pub/etc/bootstrap-wi2021]'
+    echo
     echo 'Run ‘211’ for the CS 211 development environment.'
+    echo
 endif
