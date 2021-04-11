@@ -45,4 +45,5 @@ hide_my_python
 adjust_term_type
 set_asan_options
 
-exec "$gdb_path" "$@"
+exec "$gdb_path" "$@" 2>&1 |
+    exec ubgrepv 'warning: Loadable section ".note.gnu.property" outside of ELF segments'
