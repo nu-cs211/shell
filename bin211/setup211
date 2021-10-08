@@ -6,6 +6,7 @@ export PUB211=/home/cs211/pub
 export PATH=$PUB211/bin:$PATH
 
 srcdir=$PUB211/etc/setup
+microsrcdir=$PUB211/etc/microsetup
 dstdir=${HOME%/}/
 prog=${0##*/}
 mode=backup
@@ -190,6 +191,29 @@ replace_file () {
     fi
 }
 
+replace_micro_file () {
+    local src=$1
+    local dst=${dstdir}.config/micro/${1##*/}
+
+    if ! [ -e "$src" ]; then
+        exec >&2
+        show_error "Could not install ${file_c}${dst##*/}"
+        echo "${white}This is quite surprising. Please report a bug.$normal"
+        exit 1
+    fi
+
+    if diff "$src" "$dst" >/dev/null 2>&1; then
+        show_warning >&2 "You already have my $file_c${dst##*/}$normal; skipping..."
+        return 0
+    fi
+
+    if should_write_file "$src" "$dst"; then
+        mkdir -p ${dstdir}.config/micro/
+        cp "$src" "$dst"
+        log_action "Installed $file_c${dst##*/}$normal to $dir_c$dstdir"
+    fi
+}
+
 
 ###
 ### START HERE
@@ -268,5 +292,8 @@ fi
 echo "Installing CS 211’s default dotfiles to $dir_c$dstdir$normal..."
 for file in $srcdir/*; do
     replace_file "$file"
+done
+for file in $microsrcdir/*; do
+    replace_micro_file "$file"
 done
 echo "Installation complete."
