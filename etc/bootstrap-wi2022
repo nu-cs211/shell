@@ -1,0 +1,7 @@
+# vim: ft=tcsh:
+
+alias 211 exec ~cs211/pub/bin/env211
+
+if (! $?EMACS && ! $?PUB211 && { (/usr/bin/tty >&/dev/null) }) then
+    echo 'Run ‘211’ for the CS 211 development environment.'
+endif

@@ -1,7 +1,7 @@
 # CS 211 tcsh configuration
 
-if ( -e ~cs211/pub/etc/bootstrap-fa2021 ) then
-    source ~cs211/pub/etc/bootstrap-fa2021
+if ( -e ~cs211/pub/etc/bootstrap-wi2021 ) then
+    source ~cs211/pub/etc/bootstrap-wi2021
 endif
 
 if ( -e ~/.cshaliases ) then
